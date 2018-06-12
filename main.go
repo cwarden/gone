@@ -19,6 +19,7 @@ var p = flag.String("p", "wswswl", "Pattern to  follow (for example wswswl)")
 var e = flag.String("e", "", "The command to execute when a session is done")
 var m = flag.String("m", "dark", "Select the color mode (light or dark)")
 var n = flag.Bool("n", false, "Enable desktop notifications")
+var c = flag.Bool("c", false, "Automatically continue")
 var d = flag.Bool("debug", false, "Debug option for development purpose")
 
 var wg sync.WaitGroup
@@ -49,6 +50,7 @@ func main() {
 	currentPainter = painter.NewPainter(currentState, *m, *d)
 	currentPainter.Init()
 	currentTimer = util.NewTimer(currentState, currentPainter, *e, notifier)
+	currentTimer.AutoContinue = *c
 	go handleKeyEvent()
 	go currentTimer.Run()
 	wg.Add(1)
@@ -83,6 +85,8 @@ func handleKeyEvent() {
 				if currentState.IsWaiting() {
 					currentState.Resume()
 				}
+			case 'c':
+				currentTimer.AutoContinue = !currentTimer.AutoContinue
 			default:
 				if currentState.IsWaiting() {
 					exit()

@@ -12,11 +12,12 @@ import (
 
 // Timer count time and update the state accordingly.
 type Timer struct {
-	state    *state.State
-	command  string
-	ticker   *time.Ticker
-	painter  *painter.Painter
-	notifier Notifier
+	state        *state.State
+	command      string
+	ticker       *time.Ticker
+	painter      *painter.Painter
+	notifier     Notifier
+	AutoContinue bool
 }
 
 // NewTimer create a new timer using a state, a command to execute
@@ -57,8 +58,13 @@ func (t *Timer) Run() {
 			fmt.Printf("Fail to execute command : %s - %v\n", t.command, err)
 		}
 	}
-	t.state.WaitForConfirm(t.Run)
-	t.painter.Draw()
+	if t.AutoContinue {
+		t.state.Next()
+		go t.Run()
+	} else {
+		t.state.WaitForConfirm(t.Run)
+		t.painter.Draw()
+	}
 }
 
 // Stop the timer.
