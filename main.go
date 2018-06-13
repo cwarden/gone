@@ -92,7 +92,7 @@ func handleKeyEvent() {
 					currentState.Next()
 				}
 			case 'r':
-				if currentState.IsRunning() {
+				if currentState.IsRunning() || currentState.IsPaused() {
 					currentState.Reset()
 				}
 			case 'c':

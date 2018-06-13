@@ -54,6 +54,10 @@ func (s *State) WaitForConfirm(callback Callback) {
 	s.resumeWaitingCallback = callback
 }
 
+func (s *State) IsPaused() bool {
+	return s.currentState == PAUSED
+}
+
 func (s *State) IsRunning() bool {
 	return s.currentState == RUNNING
 }
@@ -74,6 +78,7 @@ func (s *State) Decrease() {
 
 func (s *State) Reset() {
 	s.duration = s.durations[s.pattern[s.currentIdx]]
+	s.currentState = RUNNING
 }
 
 func (s *State) Next() {
