@@ -85,6 +85,16 @@ func handleKeyEvent() {
 				if currentState.IsWaiting() {
 					currentState.Resume()
 				}
+			case 'n':
+				if currentState.IsWaiting() {
+					exit()
+				} else {
+					currentState.Next()
+				}
+			case 'r':
+				if currentState.IsRunning() {
+					currentState.Reset()
+				}
 			case 'c':
 				currentTimer.AutoContinue = !currentTimer.AutoContinue
 			default:

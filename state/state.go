@@ -72,6 +72,10 @@ func (s *State) Decrease() {
 	}
 }
 
+func (s *State) Reset() {
+	s.duration = s.durations[s.pattern[s.currentIdx]]
+}
+
 func (s *State) Next() {
 	if s.currentIdx == len(s.pattern)-1 {
 		s.currentIdx = 0
