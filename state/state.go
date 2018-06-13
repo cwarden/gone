@@ -111,7 +111,11 @@ func (s *State) StatusMessage() string {
 		return fmt.Sprintf("A %s is in progress", msgs[s.pattern[s.currentIdx]])
 	}
 
-	return fmt.Sprintf("Your %s has ended, time for a %s.", msgs[s.pattern[s.currentIdx]], msgs[s.pattern[s.currentIdx+1]])
+	nextIndex := s.currentIdx + 1
+	if s.currentIdx == len(s.pattern)-1 {
+		nextIndex = 0
+	}
+	return fmt.Sprintf("Your %s has ended, time for a %s.", msgs[s.pattern[s.currentIdx]], msgs[s.pattern[nextIndex]])
 }
 
 // Duration format a duration to 12:34 (mm:ss).
