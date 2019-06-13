@@ -16,7 +16,8 @@ right artifact and put it in your path :)
 Run gone and Use ```q``` to quit, ```p``` to pause.
 
 ```
-Usage of ./bin/gone:
+Usage of gone:
+  -c    Automatically continue
   -debug
         Debug option for development purpose
   -e string
@@ -24,7 +25,8 @@ Usage of ./bin/gone:
   -l int
         Duration of a long break (default 15)
   -m string
-        Select the color mode (default "dark")
+        Select the color mode (light or dark) (default "dark")
+  -n    Enable desktop notifications
   -p string
         Pattern to  follow (for example wswswl) (default "wswswl")
   -s int
